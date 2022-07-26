@@ -1,6 +1,7 @@
 package com.project.accountmanagement.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -9,12 +10,13 @@ import javax.persistence.Table;
 public class BankAccount {
 	@Id
 	@Column(name="accNumber")
+	@GeneratedValue
 	private long accountNumber;
 	
 	@Column(name="customerId")
 	private long customerId;
 	
-	@Column(name="currentBalance")
+	@Column(name="currentBalance",columnDefinition = "int default 0")
 	private long currentBalance;
 
 	public long getAccountNumber() {

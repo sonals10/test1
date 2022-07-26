@@ -16,12 +16,13 @@ public class ManagerController {
 	private ManagerService managerservice;
 	
 	@PostMapping("/createcustomer")
-	public ResponseEntity<Object> createCustomer(@RequestBody Customer customer){
+	public Customer createCustomer(@RequestBody Customer customer){
 		String pannumber=customer.getPanNumber();
 		
+		return managerservice.createCustomer(customer);
 		
 		
-		return new ResponseEntity<>(customer,HttpStatus.OK);
+		
 	}
 	
 	
