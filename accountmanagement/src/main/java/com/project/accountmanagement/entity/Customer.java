@@ -1,10 +1,13 @@
 package com.project.accountmanagement.entity;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -14,19 +17,19 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 //@TableGenerator(name = "Customer",initialValue = 100000)
 @Table(name="Customer")
 public class Customer {
+	@SequenceGenerator(name="seq",initialValue=100000, allocationSize=1)
 	@Id
 	@Column(name="Cid")
-//	@GeneratedValue(strategy=GenerationType.TABLE, generator="Customer")
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
 	private long cId;
 
 	@Column(name = "Cname")
 	private String customerName;
 	
-	@Column(name="DOB", columnDefinition = "DATE DEFAULT NULL")
-	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd")
+	@Column(name="dateOfBirth")
+//	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd")
 //	@NotNull(message = "Please provide your DOB.")
-	private Date dateOfBirth;
+	private LocalDate dateOfBirth;
 	
 	@Column(name="panNumber")
 	private String panNumber;
@@ -56,11 +59,11 @@ public class Customer {
 		this.customerName = customerName;
 	}
 
-	public Date getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -103,7 +106,7 @@ public class Customer {
 
 	public Customer(
 			long cId, 
-			String customerName, Date dateOfBirth, String panNumber, String aadherNumber,
+			String customerName, LocalDate dateOfBirth, String panNumber, String aadherNumber,
 			String address, String email) {
 		super();
 		this.cId = cId;
