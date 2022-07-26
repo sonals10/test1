@@ -2,15 +2,18 @@ package com.project.accountmanagement.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="BankAccount")
 public class BankAccount {
+	@SequenceGenerator(name="seq",initialValue=1000000000, allocationSize=1)
 	@Id
 	@Column(name="accNumber")
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
 	private long accountNumber;
 	
 	@Column(name="customerId")

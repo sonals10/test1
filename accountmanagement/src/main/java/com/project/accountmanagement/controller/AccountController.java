@@ -1,7 +1,12 @@
 package com.project.accountmanagement.controller;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+//import java.util.Date;
+
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Set;
 
@@ -11,11 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.project.accountmanagement.entity.AccountTransaction;
 import com.project.accountmanagement.entity.BankAccount;
+import com.project.accountmanagement.exception.ValueNotFoundException;
 import com.project.accountmanagement.service.AccountService;
-
+import com.project.accountmanagement.service.AccountService;
 import com.project.accountmanagement.service.ManagerService;
 
 
@@ -24,23 +29,13 @@ public class AccountController {
 	@Autowired
 	private AccountService accountservice;
 	
+	
+	@GetMapping("/statement/{accountnumber}")
+	public List<AccountTransaction> getStatementsByAccountId(@PathVariable long accountnumber) throws ValueNotFoundException{
 
-//	@GetMapping("/accounts/{id}")
-//	public List<BankAccount> getAccountsByCustomerId(@PathVariable long id){
-//		
-//		return 
-//	}
-//	
-//	@GetMapping("/statement/{id}")
-//	public List<AccountTransaction> getStatementsByAccountId(@PathVariable long accountId){
-////		Sysout
-//		return 
-//	}
-//	@GetMapping("/statement/{date}")
-//	public List<AccountTransaction> getStatementsByDate(@PathVariable Date date){
-//		
-//		return 
-//	}
+		return accountService.getStatementsByAccountId(accountnumber);
+}
+
 	
 	@PostMapping("/deposit")
 	public AccountTransaction newTransactionByDeposit(@RequestParam(value="amount") long amount,
@@ -54,12 +49,19 @@ public class AccountController {
 			@RequestParam(value="accountnumber") long accountnumber){
 		
 		return accountservice.withdrawamount(amount,accountnumber); 
+
 	}
 	
+	@GetMapping("/statements/{date}")
+	public List<AccountTransaction> getStatementsByDate(@PathVariable String date){
+		
+		return accountService.getStatementsByDate(date);
+	}
+
 	@PostMapping("/transfer")
 	public AccountTransaction newTransactionByTransfer(@RequestParam(value="amount") int amount,
-			@RequestParam(value="accountnumber1") int accountnumber1, @RequestParam(value="accountnumber2") int accountnumber2){
-		
+		@RequestParam(value="accountnumber1") int accountnumber1, @RequestParam(value="accountnumber2") int accountnumber2){
+
 		return accountservice.transferamount(amount,accountnumber1,accountnumber2);
 	}
 
@@ -71,6 +73,4 @@ public class AccountController {
 			
 	}
 	
-
-
 }
