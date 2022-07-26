@@ -26,9 +26,9 @@ public class AccountController {
 	
 	@GetMapping("/accounts/{id}")
 	public Set<HashMap<String,String>> getAccountsByCustomerId(@PathVariable long id){
+	
 		
-		
-			return accountservice.getAccountdetaisByCustomerId(id);
+    return accountservice.getAccountdetaisByCustomerId(id);
 			
 	}
 	
