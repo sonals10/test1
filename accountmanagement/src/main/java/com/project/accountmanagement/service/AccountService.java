@@ -144,4 +144,19 @@ public class AccountService {
 ////		return customer1;
 //	}
 
+	public Set<HashMap<String, String>> getAccountdetaisByCustomerId(long custid) {
+		Set<HashMap<String,String>> finalaccounts= new HashSet<HashMap<String,String>>();
+		Optional<List<BankAccount>> bankaccount=bankaccountrepository.findCustomerByCustomerId(custid);
+		
+		if(bankaccount.isPresent()) {	
+			for(BankAccount account: bankaccount.get()){
+				HashMap<String,String> accdetails=new HashMap<String,String>();
+				accdetails.put("Account number",Long.toString(account.getAccountNumber()));
+				accdetails.put("Current balance",Long.toString(account.getCurrentBalance()));
+				finalaccounts.add(accdetails);
+			}
+		}
+		
+		return finalaccounts;
+	}
 }
