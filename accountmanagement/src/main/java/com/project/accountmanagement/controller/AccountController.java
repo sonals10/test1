@@ -24,7 +24,7 @@ public class AccountController {
 	
 	@GetMapping("/statement/{id}")
 	public List<AccountTransaction> getStatementsByAccountId(@PathVariable long accountId){
-		
+//		Sysout
 		return 
 	}
 	@GetMapping("/statement/{date}")
